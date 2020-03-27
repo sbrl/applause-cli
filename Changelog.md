@@ -10,7 +10,7 @@ Release template text:
 	```
 
 ## v1.1
- - Fix missing `export` in `Argumenet.mjs`
+ - Fix missing `export` in `Argument.mjs`
 
 ## v1.0
  - Initial release! Refactored out from my main PhD codebase.
