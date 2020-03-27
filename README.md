@@ -4,6 +4,11 @@
 
 Inspired by [`clap`](https://www.npmjs.com/package/clap). It wasn't quite what I wanted, so I wrote my own :P
 
+ - **Current version:** 
+ - **API Docs:** (coming soon)
+ - **Changelog:** https://github.com/sbrl/applause-cli/blob/master/Changelog.md
+
+
 ## Install
 Install via `npm`:
 
