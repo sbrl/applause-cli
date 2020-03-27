@@ -1,5 +1,7 @@
 "use strict";
 
+import Argument from './Argument.mjs'
+
 class Subcommand {
 	get has_arguments() {
 		return Object.keys(this.arguments).length > 0
