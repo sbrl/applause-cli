@@ -4,7 +4,7 @@
 	"description": "Super-duper lightweight no-dependency alternative to clap",
 	"main": "src/index.mjs",
 	"scripts": {
-		"test": "echo \"No test have been implemented yet\""
+		"test": "echo \"No tests have been implemented yet\""
 	},
 	"repository": {
 		"type": "git",
