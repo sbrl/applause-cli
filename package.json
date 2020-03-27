@@ -1,0 +1,25 @@
+{
+  "name": "applause-cli",
+  "version": "1.0.0",
+  "description": "Super-duper lightweight no-dependency alternative to clap",
+  "main": "src/index.mjs",
+  "scripts": {
+    "test": "echo \"No test have been implemented yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sbrl/applause-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "command",
+    "option",
+    "argument"
+  ],
+  "author": "Starbeamrainbowlabs",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/sbrl/applause-cli/issues"
+  },
+  "homepage": "https://github.com/sbrl/applause-cli#readme"
+}
