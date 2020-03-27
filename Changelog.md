@@ -9,6 +9,8 @@ Release template text:
 	npm install --save applause-cli
 	```
 
+## v1.1
+ - Fix missing `export` in `Argumenet.mjs`
 
-## v1.0.0
+## v1.0
  - Initial release! Refactored out from my main PhD codebase.
