@@ -4,7 +4,7 @@
 
 Inspired by [`clap`](https://www.npmjs.com/package/clap). It wasn't quite what I wanted, so I wrote my own :P
 
- - **Current version:** 
+ - **Current version:** ![current npm version - see the GitHub releases](https://img.shields.io/npm/v/applause-cli)
  - **API Docs:** (coming soon)
  - **Changelog:** https://github.com/sbrl/applause-cli/blob/master/Changelog.md
 
@@ -74,4 +74,4 @@ Contributions are welcome as PRs! Don't forget to say that you donate your contr
 
 
 ## Licence
-This project is licensed under the _Mozilla Public License 2.0_. See the `LICENCSE` file in this repository for the full text.
+This project is licensed under the _Mozilla Public License 2.0_. See the `LICENSE` file in this repository for the full text.
