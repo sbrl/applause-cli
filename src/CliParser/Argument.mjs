@@ -64,7 +64,7 @@ class Argument {
 		if(typeof val == "string") {
 			switch(this.type.split("_")[0]) {
 				case "integer":
-					return parseInt(val);
+					return parseInt(val, 10);
 				case "float":
 					return parseFloat(val);
 				case "boolean":
