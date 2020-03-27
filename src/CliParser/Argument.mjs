@@ -83,3 +83,5 @@ class Argument {
 		return `--${this.name} value`;
 	}
 }
+
+export default Argument;
