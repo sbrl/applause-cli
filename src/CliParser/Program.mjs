@@ -8,7 +8,7 @@ import Subcommand from './Subcommand.mjs';
 
 /**
  * Represents a program and all it's arguments and subcommands.
- * TODO: Publish on npm under the name "applause-cli", since it's inspired by clap?
+ * @param	{string}	npm_package_json_loc	The filepath to your project's package.json file.
  * @license MPL-2.0
  */
 class Program {
@@ -40,10 +40,7 @@ class Program {
 			.reduce((prev, next) => Math.max(prev, next.toString().length), 0);
 	}
 	
-	/**
-	 * Creates a new Program instance for specifying arguments and subcommands.
-	 * @param	{string}	npm_package_json_loc	The filepath to your project's package.json file.
-	 */
+	
 	constructor(npm_package_json_loc) {
 		this.npm_package = JSON.parse(fs.readFileSync(npm_package_json_loc, "utf-8"));
 		this.name = this.npm_package.name;
