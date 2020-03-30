@@ -92,11 +92,37 @@ class Program {
 	
 	/**
 	 * Adds an argument to the program.
+	 * @example <caption>A string argument</caption>
+	 * let program = new Program("path/to/package.json");
+	 * program.argument("food", "Specifies the food to find.", "apple");
+	 * program.parse(process.argv.slice(2)); // Might return { food: "banana" }
+	 * @example <caption>A boolean argument</caption>
+	 * let program = new Program("path/to/package.json");
+	 * program.argument("with-lemonade", "Whether to include lemonade with your order", false, "boolean");
+	 * program.parse(process.argv.slice(2)); // Might return { with_lemonade: true }
+	 * @example <caption>Multiple integers</caption>
+	 * let program = new Program("path/to/package.json");
+	 * program.argument("package-number", "The number of the package(s) to ship. Maybe specified multiple times.", null, "integer_multi");
+	 * program.parse(process.argv.slice(2)); // Might return { package_number: [ 4, 5, 6 ] }
+	 * @example <caption>Using a custom function</caption>
+	 * let program = new Program("path/to/package.json");
+	 * program.argument("items", "A comma-separated list of items to put in the box.", null, (value) => {
+	 * 	return value.split(",").map((item) => item.trim());
+	 * });
+	 * program.parse(process.argv.slice(2)); // Might return { items: [ "banana", "orange", "raspberry" ] }
 	 * @param	{string}	name			The name of the argument
 	 * @param	{string}	description		A description of the argument
 	 * @param	{any}		default_value	The default value of the argument
-	 * @param	{Boolean}	[type="string"]	The type of this argument. Set to "boolean" for flags that have no value.
-	 * @return	{this}
+	 * @param	{string|Function}	[type="string"]	The type of this argument. Set to "boolean" for flags that have no value. Possible values:
+	 *  - string: Just a regular string
+	 *  - integer: Parse values with parseInt(value, 10)
+	 *  - float: Parse values with parseFloat(value)
+	 *  - boolean: The presence of the argument on the command line will set this value to true. Unlike other argument types, no value is required (e.g. "path/to/file.mjs --foo", not "path/to/file.mjs --foo bar").
+	 * 
+	 * For custom types, pass a function instead. Said function will be called with a single argument: The value to parse as a string. The return value will be treated as the parsed value.
+	 * 
+	 * Appending "_multi" (without quotes) to the type will cause applause-cli to allow multiple values for that parameter. In this case, the argument's parsed value will be an array of items.
+	 * @return	{this}	The current Program instance for daisy-chaining
 	 */
 	argument(name, description, default_value, type = "string") {
 		this.arguments_global[name] = new Argument(

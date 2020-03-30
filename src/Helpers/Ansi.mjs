@@ -13,6 +13,7 @@
  * 9th March 2020:
  * 	- Add Italics (\u001b[3m])
  * 	- Export a new instance of it by default (makes it so that there's 1 global instance)
+ * @private
  */
 class Ansi {
 	constructor() {

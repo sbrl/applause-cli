@@ -21,10 +21,13 @@
 	"bugs": {
 		"url": "https://github.com/sbrl/applause-cli/issues"
 	},
-    "files": [
-        "src/",
-        "LICENSE",
-        "package.json"
-    ],
-	"homepage": "https://github.com/sbrl/applause-cli#readme"
+	"files": [
+		"src/",
+		"LICENSE",
+		"package.json"
+	],
+	"homepage": "https://github.com/sbrl/applause-cli#readme",
+	"devDependencies": {
+		"documentation": "^12.1.4"
+	}
 }

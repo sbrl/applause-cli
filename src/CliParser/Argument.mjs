@@ -2,6 +2,8 @@
 
 /**
  * Represents a single command-line argument.
+ * You probably won't interactw ith this class directly - it's safe to ignore
+ * it until you need it.
  */
 class Argument {
 	/**

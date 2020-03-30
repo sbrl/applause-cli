@@ -1,0 +1,179 @@
+#!/usr/bin/env bash
+# Make sure the current directory is the location of this script to simplify matters
+cd "$(dirname $(readlink -f $0))";
+################
+### Settings ###
+################
+
+# The name of this project
+project_name="applause-cli";
+
+# The path to the lantern build engine git submodule
+lantern_path="./lantern-build-engine";
+
+###
+# Custom Settings
+###
+
+# Put any custom settings here.
+docs_output_folder="./docs";
+
+# Deployment settings
+deploy_ssh_user="ci";
+deploy_ssh_host="starbeamrainbowlabs.com";
+deploy_ssh_port=2403;
+
+deploy_root_dir="applause-cli";
+
+###############################################################################
+
+# Check out the lantern git submodule if needed
+if [ ! -f "${lantern_path}/lantern.sh" ]; then git submodule update --init "${lantern_path}"; fi
+
+source "${lantern_path}/lantern.sh";
+
+if [[ "$#" -lt 1 ]]; then
+	echo -e "${FBLE}${project_name}${RS} build script";
+	echo -e "    by Starbeamrainbowlabs";
+	echo -e "${LC}Powered by the lantern build engine, v${version}${RS}";
+	echo -e "";
+	echo -e "${CSECTION}Usage${RS}";
+	echo -e "    ./build ${CTOKEN}{action}${RS} ${CTOKEN}{action}${RS} ${CTOKEN}{action}${RS} ...";
+	echo -e "";
+	echo -e "${CSECTION}Available actions${RS}";
+	echo -e "    ${CACTION}setup${RS}         - Perform initial setup";
+	echo -e "    ${CACTION}docs${RS}          - Render the API docs to HTML";
+	echo -e "    ${CACTION}docs-watch${RS}    - Auto-update the docs on source file modification";
+	echo -e "    ${CACTION}archive${RS}       - Create an archive of CI artifacts";
+	echo -e "    ${CACTION}ci${RS}            - Do CI tasks";
+	echo -e "";
+	
+	exit 1;
+fi
+
+###############################################################################
+
+task_setup() {
+	
+	task_begin "Checking environment";
+	check_command git true;
+	check_command node true;
+	check_command npm true;
+	check_command jq true;
+	task_end $?;
+	
+	task_begin "Initialising submodules";
+	git submodule update --init;
+	task_end $? "Failed to initialise submodules";
+	
+	task_begin "Installing dependencies";
+	npm install;
+	task_end $? "Failed to install dependencies";
+}
+
+task_docs() {
+	task_begin "Rendering API docs";
+	
+	subtask_begin "Altering git remote";
+	remote_name="$(git remote | head -n1)";
+	remote_url="$(git remote get-url "${remote_name}")";
+	git remote set-url "${remote_name}" "https://github.com/sbrl/${project_name}.git";
+	subtask_end $? "Failed to alter git remote";
+	
+	subtask_begin "Calling 'documentation'";
+	node_modules/.bin/documentation build --github --output "${docs_output_folder}" --format html "$(jq --raw-output .main <package.json)";
+	subtask_end $? "'documentation' exited with an error";
+	
+	subtask_begin "Reverting git remote alteration";
+	git remote set-url "${remote_name}" "${remote_url}";
+	subtask_end $? "Failed to revert remote alteration";
+	
+	if [[ -f "./docs.css" ]]; then
+		subtask_begin "Applying extra CSS";
+		cat docs.css >>"$(find "${docs_output_folder}" -iname "*.css" -print -quit)";
+		subtask_end $? "Failed to apply additional CSS";
+	fi
+	
+	task_end $? "Failed to render API docs";
+}
+
+task_docs-watch() {
+	check_command inotifywait;
+	set_title "Docs Watcher";
+	
+	echo -e "Watching for changes.";
+	while :; do # : = infinite loop
+		# Wait for an update
+		# inotifywait's non-0 exit code forces an exit for some reason :-/
+		inotifywait -qr --event modify --format '%:e %f' $(find . -iname "*.mjs" -not -path "./node_modules/*") ./docs.css;
+		
+		# Rebuild the docs
+		# This exits on error because of stage_end - we need add a way to make the exit on non-zero optional to lantern
+		stage_begin "Rebuilding docs";
+		tasks_run docs;
+		stage_end $?;
+	done
+}
+
+task_archive() {
+	task_begin "Packing archive";
+	tar caf "${ARCHIVE}/${project_name}.tar.bz2" "${docs_output_folder}";
+	task_end $?;
+}
+
+task_deploy() {
+	stage_begin "Deploying to ${deploy_ssh_host}....";
+	if [ "${SSH_KEY_PATH}" == "" ]; then
+		echo "${FRED}${HC}Error: Can't find the SSH key as the environment variable SSH_KEY_PATH isn't set.${RS}" >&2;
+		stage_end 1;
+	fi
+	
+	task_begin "Preparing upload";
+	subtask_begin "Unwinding symlinks";
+	find "${docs_output_folder}" -type l -exec bash -c 'ln -f "$(readlink -m "$0")" "$0"' {} \;
+	subtask_end $?;
+	task_end $?;
+	
+	# Acquire an exclusive project-wide lock so that we only upload stuff one-at-a-time
+	task_begin "Acquiring upload lock";
+	exec 9<"${WORKSPACE}";
+	flock --exclusive 9;
+	task_end $? "Failed to acquire lock!";
+	
+	task_begin "Cleaning up old release";
+	lftp_commands_filename="$(mktemp --suffix "-commands.lftp")";
+	(
+		echo "set sftp:connect-program 'ssh -x -i ${SSH_KEY_PATH}'";
+		# We have an extra : before the @ here to avoid the password prompt
+		echo "connect sftp://${deploy_ssh_user}:@${deploy_ssh_host}:${deploy_ssh_port}";
+		echo "rm -r \"${deploy_root_dir}/docs\"";
+		echo "bye";
+	) >"${lftp_commands_filename}";
+	
+	execute lftp --version;
+	execute cat "${lftp_commands_filename}";
+	execute lftp -f "${lftp_commands_filename}";
+	task_end $? "Failed to cleanup old release";
+	
+	task_begin "Uploading new release";
+	sftp -i "${SSH_KEY_PATH}" -P "${deploy_ssh_port}" -o PasswordAuthentication=no "${deploy_ssh_user}@${deploy_ssh_host}" << SFTPCOMMANDS
+mkdir ${deploy_root_dir}/docs
+put -r ${docs_output_folder}/* ${deploy_root_dir}/docs/
+bye
+SFTPCOMMANDS
+	task_end $? "Failed to upload new release";
+
+	subtask_begin "Releasing lock";
+	exec 9>&- # Close file descriptor 9 and release the lock
+	subtask_end $?;
+	
+	stage_end $? "Failed to deploy to ${deploy_ssh_host}.";
+}
+
+task_ci() {
+	tasks_run setup docs archive deploy;
+}
+
+###############################################################################
+
+tasks_run $@;
