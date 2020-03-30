@@ -5,7 +5,7 @@
 Inspired by [`clap`](https://www.npmjs.com/package/clap). It wasn't quite what I wanted, so I wrote my own :P
 
  - **Current version:** ![current npm version - see the GitHub releases](https://img.shields.io/npm/v/applause-cli)
- - **API Docs:** (coming soon)
+ - **API Docs:** https://starbeamrainbowlabs.com/code/applause-cli/
  - **Changelog:** https://github.com/sbrl/applause-cli/blob/master/Changelog.md
 
 
