@@ -10,8 +10,13 @@ Release template text:
 	```
 
 
+## v1.2.1
+ - Update README
+
+
 ## v1.2
  - Fix missing `import` in `Subcommand.mjs`
+
 
 ## v1.1
  - Fix missing `export` in `Argument.mjs`
