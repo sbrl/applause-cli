@@ -42,6 +42,9 @@ cli.subcommand("do_stuff", "Do some stuff.")
 	// An argument just for this subcommand
 	.argument("input", "The input file to do stuff with.", "default_value_here", "string");
 
+console.log(
+	cli.parse(process.argv.slice(2))
+);
 ```
 
 The full API documentation can be found here: (TODO: Insert a link here)
