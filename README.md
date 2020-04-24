@@ -4,6 +4,8 @@
 
 Inspired by [`clap`](https://www.npmjs.com/package/clap). It wasn't quite what I wanted, so I wrote my own :P
 
+This is refactored out of my main PhDcodebase, so if you're wondering why there aren't very many commits, that's why.
+
  - **Current version:** ![current npm version - see the GitHub releases](https://img.shields.io/npm/v/applause-cli)
  - **API Docs:** https://starbeamrainbowlabs.com/code/applause-cli/
  - **Changelog:** https://github.com/sbrl/applause-cli/blob/master/Changelog.md
@@ -36,10 +38,13 @@ const cli = new CliParser(package_json_filepath);
 
 cli.argument("foo", "This is a global argument.", true, "boolean")
 
-cli.subcommand("do_stuff", "Do some stuff.");
+cli.subcommand("do_stuff", "Do some stuff.")
 	// An argument just for this subcommand
 	.argument("input", "The input file to do stuff with.", "default_value_here", "string");
 
+console.log(
+	cli.parse(process.argv.slice(2))
+);
 ```
 
 The full API documentation can be found here: (TODO: Insert a link here)
