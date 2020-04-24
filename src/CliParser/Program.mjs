@@ -157,8 +157,8 @@ class Program {
 	 */
 	parse(args) {
 		// Apply the default argument values
-		for(let name in this.arguments)
-			this.options[name] = this.arguments[name].default_value;
+		for(let name in this.arguments_global)
+			this.options[name] = this.arguments_global[name].default_value;
 		
 		// Parse the specified options
 		for(let i = 0; i < args.length; i++) {
@@ -167,8 +167,8 @@ class Program {
 				if(this.has_subcommands && this.current_subcommand == null) {
 					this.current_subcommand = args[i];
 					// Apply the default subcommand argument values
-					for(let name in this.arguments)
-						this.options[name] = this.arguments[name].default_value;
+					for(let name in this.arguments_global)
+						this.options[name] = this.arguments_global[name].default_value;
 					continue;
 				}
 				

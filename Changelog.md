@@ -9,6 +9,9 @@ Release template text:
 	npm install --save applause-cli
 	```
 
+## v1.2.2
+ - Bugfix: Correctly apply default values
+
 
 ## v1.2.1
  - Update README
