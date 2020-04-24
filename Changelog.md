@@ -1,5 +1,5 @@
 # Changlog
-This is the master changelog for [`applause-cli`](https://npmjs.org/packages/applause-cli).
+This is the master changelog for [`applause-cli`](https://npmjs.org/package/applause-cli).
 
 Release template text:
 
