@@ -9,6 +9,11 @@ Release template text:
 	npm install --save applause-cli
 	```
 
+
+## v1.2.3
+ - Bugfix: Correctly apply default values for arguments of subcommands
+
+
 ## v1.2.2
  - Bugfix: Correctly apply default values
 

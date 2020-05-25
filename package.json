@@ -1,6 +1,6 @@
 {
 	"name": "applause-cli",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Super-duper lightweight no-dependency alternative to clap",
 	"main": "src/index.mjs",
 	"scripts": {

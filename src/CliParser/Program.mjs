@@ -166,9 +166,11 @@ class Program {
 				// If a subcommand hasn't been specified yet, do so now
 				if(this.has_subcommands && this.current_subcommand == null) {
 					this.current_subcommand = args[i];
+					let subcommand = this.subcommands[this.current_subcommand];
 					// Apply the default subcommand argument values
-					for(let name in this.arguments_global)
-						this.options[name] = this.arguments_global[name].default_value;
+					for(let name in subcommand.arguments) {
+						this.options[name] = subcommand.arguments[name].default_value;
+					}
 					continue;
 				}
 				
