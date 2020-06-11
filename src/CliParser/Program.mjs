@@ -166,6 +166,11 @@ class Program {
 				// If a subcommand hasn't been specified yet, do so now
 				if(this.has_subcommands && this.current_subcommand == null) {
 					this.current_subcommand = args[i];
+					if(typeof this.subcommands[this.current_subcommand] == "undefined") {
+						console.error(`${a.hicol}${a.fred}Error: The subcommand '${this.current_subcommand}' doesn't exist.
+Try --help for usage information.${a.reset}`);
+						process.exit(2);
+					}
 					let subcommand = this.subcommands[this.current_subcommand];
 					// Apply the default subcommand argument values
 					for(let name in subcommand.arguments) {
