@@ -10,6 +10,10 @@ Release template text:
 	```
 
 
+## v1.2.4
+ - Bugfix: Don't crash if the subcommand entered by the user doesn't exist
+
+
 ## v1.2.3
  - Bugfix: Correctly apply default values for arguments of subcommands
 
