@@ -3,15 +3,20 @@ This is the master changelog for [`applause-cli`](https://npmjs.org/package/appl
 
 Release template text:
 
-	Install or update from npm:
+-----
 
-	```bash
-	npm install --save applause-cli
-	```
+Install or update from npm:
+
+```bash
+npm install --save applause-cli
+```
+
+-----
 
 
 ## v1.3.0
  - Output the extra rogue values as a new `extras` property on the object returned by `.parse()`, but only if the object doesn't exist in the output options object already
+ - Update development dependencies
 
 
 ## v1.2.4
