@@ -10,6 +10,10 @@ Release template text:
 	```
 
 
+## v1.3.0
+ - Output the extra rogue values as a new `extras` property on the object returned by `.parse()`, but only if the object doesn't exist in the output options object already
+
+
 ## v1.2.4
  - Bugfix: Don't crash if the subcommand entered by the user doesn't exist
 

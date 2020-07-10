@@ -156,6 +156,8 @@ class Program {
 	 * @return	{Object}	The parsed arguments.
 	 */
 	parse(args) {
+		this.options = {};
+		
 		// Apply the default argument values
 		for(let name in this.arguments_global)
 			this.options[name] = this.arguments_global[name].default_value;
@@ -224,6 +226,9 @@ Try --help for usage information.${a.reset}`);
 			else
 				this.options[argument_obj.option_name] = true;
 		}
+		
+		if(typeof this.options.extras == "undefined")
+			this.options.extras = this.extras;
 		
 		return this.options;
 	}
