@@ -14,6 +14,10 @@ npm install --save applause-cli
 -----
 
 
+## v1.3.2
+ - Update dependencies
+
+
 ## v1.3.1
  - Fix help output for arguments that don't take a value
 
