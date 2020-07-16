@@ -14,6 +14,10 @@ npm install --save applause-cli
 -----
 
 
+## v1.3.1
+ - Fix help output for arguments that don't take a value
+
+
 ## v1.3.0
  - Output the extra rogue values as a new `extras` property on the object returned by `.parse()`, but only if the object doesn't exist in the output options object already
  - Update development dependencies

@@ -2,7 +2,7 @@
 
 /**
  * Represents a single command-line argument.
- * You probably won't interactw ith this class directly - it's safe to ignore
+ * You probably won't interact with this class directly - it's safe to ignore
  * it until you need it.
  */
 class Argument {
@@ -82,7 +82,10 @@ class Argument {
 	}
 	
 	toString() {
-		return `--${this.name} value`;
+		if(this.has_value)
+			return `--${this.name} value`;
+		else
+			return `--${this.name}`;
 	}
 }
 
