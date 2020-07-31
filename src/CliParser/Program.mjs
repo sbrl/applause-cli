@@ -159,8 +159,10 @@ class Program {
 		this.options = {};
 		
 		// Apply the default argument values
-		for(let name in this.arguments_global)
-			this.options[name] = this.arguments_global[name].default_value;
+		for(let name in this.arguments_global) {
+			let arg = this.arguments_global[name];
+			this.options[arg.option_name] = arg.default_value;
+		}
 		
 		// Parse the specified options
 		for(let i = 0; i < args.length; i++) {
@@ -176,7 +178,8 @@ Try --help for usage information.${a.reset}`);
 					let subcommand = this.subcommands[this.current_subcommand];
 					// Apply the default subcommand argument values
 					for(let name in subcommand.arguments) {
-						this.options[name] = subcommand.arguments[name].default_value;
+						let arg = subcommand.arguments[name];
+						this.options[arg.option_name] = arg.default_value;
 					}
 					continue;
 				}

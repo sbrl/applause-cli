@@ -14,6 +14,10 @@ npm install --save applause-cli
 -----
 
 
+## v1.3.3
+ - Fix argument default values that contain dashes `-`
+
+
 ## v1.3.2
  - Update dependencies
 
