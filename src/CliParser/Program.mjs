@@ -241,6 +241,9 @@ Try --help for usage information.${a.reset}`);
 		process.exit(0);
 	}
 	
+	/**
+	 * Displays auto-generated help text and then terminates the Node.js process
+	 */
 	write_help_exit() {
 		let result = `${a.hicol}${this.name}${a.reset} - ${this.description}
     ${a.locol}By ${this.author}${a.reset}
