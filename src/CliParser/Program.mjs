@@ -236,6 +236,10 @@ Try --help for usage information.${a.reset}`);
 		return this.options;
 	}
 	
+	/**
+	 * Writes the program version to the standard output and then exits.
+	 * @return	{n/a}	This method does not return (the process exits before this method does).
+	 */
 	write_version_exit() {
 		console.log(this.version);
 		process.exit(0);
@@ -243,6 +247,7 @@ Try --help for usage information.${a.reset}`);
 	
 	/**
 	 * Displays auto-generated help text and then terminates the Node.js process
+	 * @return	{n/a}	This method does not return (the process exits before this method does).
 	 */
 	write_help_exit() {
 		let result = `${a.hicol}${this.name}${a.reset} - ${this.description}
