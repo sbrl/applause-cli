@@ -73,7 +73,7 @@ class Program {
 	 * @param  {string} str The name of the program
 	 * @return {this}
 	 */
-	name(str) {
+	set_name(str) {
 		this.name = str;
 		return this;
 	}
@@ -83,7 +83,7 @@ class Program {
 	 * @param  {string} str The description of the program
 	 * @return {this}
 	 */
-	description(str) {
+	set_description(str) {
 		this.description = str;
 		return this;
 	}
@@ -95,7 +95,7 @@ class Program {
 	 * @param  {string} str The description of the program
 	 * @return {this}
 	 */
-	description_extended(str) {
+	set_description_extended(str) {
 		this.description_extended = str;
 		return this;
 	}
