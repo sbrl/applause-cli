@@ -14,6 +14,10 @@ npm install --save applause-cli
 -----
 
 
+## v1.4
+ - Add new extended description with `.description_extended(str)` method
+
+
 ## v1.3.3
  - Fix argument default values that contain dashes `-`
 

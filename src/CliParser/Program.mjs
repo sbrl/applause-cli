@@ -47,6 +47,7 @@ class Program {
 		this.version = this.npm_package.version;
 		this.author = this.npm_package.author;
 		this.description = this.npm_package.description;
+		this.description_extended = "";
 		
 		// Global argument definitions
 		this.arguments_global = {};
@@ -84,6 +85,18 @@ class Program {
 	 */
 	description(str) {
 		this.description = str;
+		return this;
+	}
+	
+	/**
+	 * Specifies the extended description of the program.
+	 * This will be shown directly above the "Usage:` section.
+	 * Defaults to an empty string (which means that it isn't shown).
+	 * @param  {string} str The description of the program
+	 * @return {this}
+	 */
+	description_extended(str) {
+		this.description_extended = str;
 		return this;
 	}
 	
@@ -251,11 +264,15 @@ Try --help for usage information.${a.reset}`);
 	 */
 	write_help_exit() {
 		let result = `${a.hicol}${this.name}${a.reset} - ${this.description}
-    ${a.locol}By ${this.author}${a.reset}
-
-${this.c_heading}Usage:${a.reset}
+    ${a.locol}By ${this.author}${a.reset}`;
+		
+		if(this.description_extended.length > 0)
+			result += `${this.description_extended}\n\n`;
+		
+		result += `${this.c_heading}Usage:${a.reset}
 ${" ".repeat(4)}${this.name}${this.has_subcommands ? " [subcommand]" : ""} [options]
 `;
+		
 		
 		if(this.has_subcommands)
 			result += this._stringify_subcommands();
