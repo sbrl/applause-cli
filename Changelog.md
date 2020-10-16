@@ -14,6 +14,10 @@ npm install --save applause-cli
 -----
 
 
+## v1.5.1
+ - Minor layout improvement
+
+
 ## v1.5
  - Change names of `.name()` → `.set_name()`, `.description()` → `.set_description()`, and `.description_extended()` → `.set_description_extended()` to avoid clash with variable names
 

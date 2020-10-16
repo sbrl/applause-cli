@@ -264,7 +264,7 @@ Try --help for usage information.${a.reset}`);
 	 */
 	write_help_exit() {
 		let result = `${a.hicol}${this.name}${a.reset} - ${this.description}
-    ${a.locol}By ${this.author}${a.reset}`;
+    ${a.locol}By ${this.author}${a.reset}\n\n`;
 		
 		if(this.description_extended.length > 0)
 			result += `${this.description_extended}\n\n`;
