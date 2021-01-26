@@ -14,6 +14,10 @@ npm install --save applause-cli
 -----
 
 
+## v1.5.2 (unreleased)
+ - Update development dependencies
+
+
 ## v1.5.1
  - Minor layout improvement
 
