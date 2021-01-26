@@ -4,7 +4,7 @@
 
 Inspired by [`clap`](https://www.npmjs.com/package/clap). It wasn't quite what I wanted, so I wrote my own :P
 
-This is refactored out of my main PhDcodebase, so if you're wondering why there aren't very many commits, that's why.
+This is refactored out of my main PhD codebase, so if you're wondering why there aren't very many commits, that's why.
 
  - **Current version:** ![current npm version - see the GitHub releases](https://img.shields.io/npm/v/applause-cli)
  - **API Docs:** https://starbeamrainbowlabs.com/code/applause-cli/
@@ -47,7 +47,7 @@ console.log(
 );
 ```
 
-The full API documentation can be found here: (TODO: Insert a link here)
+The full API documentation can be found here: <https://starbeamrainbowlabs.com/code/applause-cli/>.
 
 ### Argument Types
 Several argument types are currently supported. They are specified as the 4th argument to the `.argument()` command (either globally or on a specific subcommand):
@@ -71,6 +71,8 @@ cli.argument("foo", "An example argument --foo", 128, function(value) {
 
 ## Read-world use
  - I'm using it for the main Node.js application for my PhD in Computer Science!
+ - [`terrain50-cli`](https://www.npmjs.com/package/terrain50-cli) - also developed as part of my PhD
+ - [`nimrod-data-downloader`](https://www.npmjs.com/package/nimrod-data-downloader) - another component of my PhD
  - _(Are you using this project? Get in touch by [opening an issue](https://github.com/sbrl/applause-cli/issues/new))_
 
 
