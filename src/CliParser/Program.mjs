@@ -101,6 +101,19 @@ class Program {
 	}
 	
 	/**
+	 * Sets the name of the author of the program.
+	 * @example
+	 * let cli = new Program("path/to/package.json");
+	 * cli.set_author("Bob");
+	 * @param	{string}	str	The name of the author who wrote the program.
+	 * @return {this}
+	 */
+	set_author(str) {
+		this.author = str;
+		return this;
+	}
+	
+	/**
 	 * Adds an argument to the program.
 	 * @example <caption>A string argument</caption>
 	 * let program = new Program("path/to/package.json");
