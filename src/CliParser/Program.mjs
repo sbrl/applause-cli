@@ -42,11 +42,13 @@ class Program {
 	
 	
 	constructor(npm_package_json_loc) {
-		this.npm_package = JSON.parse(fs.readFileSync(npm_package_json_loc, "utf-8"));
-		this.name = this.npm_package.name;
-		this.version = this.npm_package.version;
-		this.author = this.npm_package.author;
-		this.description = this.npm_package.description;
+		this.npm_package = {};
+		if(typeof npm_package_json_loc == "string")
+			this.npm_package = JSON.parse(fs.readFileSync(npm_package_json_loc, "utf-8"));
+		this.name = this.npm_package.name || "(unknown)";
+		this.version = this.npm_package.version || "(unknown)";
+		this.author = this.npm_package.author || "(unknown)";
+		this.description = this.npm_package.description || "(unknown)";
 		this.description_extended = "";
 		
 		// Global argument definitions

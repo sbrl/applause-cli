@@ -16,6 +16,7 @@ npm install --save applause-cli
 
 ## v1.5.2 (unreleased)
  - Update development dependencies
+ - Allow not specifying a path to an NPM package.json file
  - Add `.set_author()` method to `Program`
 
 
