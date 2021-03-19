@@ -28,6 +28,6 @@
 	],
 	"homepage": "https://github.com/sbrl/applause-cli#readme",
 	"devDependencies": {
-		"documentation": "^13.1.1"
+		"documentation": "^13.2.0"
 	}
 }
