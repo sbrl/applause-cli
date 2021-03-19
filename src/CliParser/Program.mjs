@@ -143,6 +143,7 @@ class Program {
 	 *  - integer: Parse values with parseInt(value, 10)
 	 *  - float: Parse values with parseFloat(value)
 	 *  - boolean: The presence of the argument on the command line will set this value to true. Unlike other argument types, no value is required (e.g. "path/to/file.mjs --foo", not "path/to/file.mjs --foo bar").
+	 *  - date: Parse values by executing `new Date(value)`
 	 * 
 	 * For custom types, pass a function instead. Said function will be called with a single argument: The value to parse as a string. The return value will be treated as the parsed value.
 	 * 
