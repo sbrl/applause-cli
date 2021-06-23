@@ -18,6 +18,7 @@ Install via `npm`:
 npm install applause-cli --save
 ```
 
+
 ## Usage
 Example usage:
 
@@ -58,6 +59,8 @@ Type		| Meaning
 `integer`	| An integer (`parseInt(value, 10)` is used)
 `float`		| A floating-point number (`parseFloat(value)` is used)
 `boolean`	| A boolean `true`/`false` value. Unlike other types, arguments with this type do not take an explicit value on the cli (e.g. `--foo bar`) - rather their presence on the CLI sets the value to `true`. This can be overridden though with `argument.has_value = true`.
+`date`		| Parse the string as a date with `new Date(value)`
+`<function>`| Pass a function to do custom parsing. The function provided will be called with a single argument - the value that needs parsing. The return value will be considered the parsed value.
 
 In addition, a function can be passed instead of a string defining the type of an argument, and that function will be called with a single argument to parse values instead:
 
