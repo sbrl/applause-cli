@@ -14,6 +14,10 @@ npm install --save applause-cli
 -----
 
 
+## v1.7 (unreleased)
+ - Update development dependencies
+
+
 ## v1.6
  - Update development dependencies
  - Allow not specifying a path to an NPM package.json file
