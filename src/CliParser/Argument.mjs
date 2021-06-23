@@ -71,6 +71,8 @@ class Argument {
 					return parseFloat(val);
 				case "boolean":
 					return JSON.parse(val.toLowerCase());
+				case "date":
+					return new Date(val);
 				case "custom":
 					return this.type_parser(val);
 				case "string":

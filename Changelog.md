@@ -14,7 +14,8 @@ npm install --save applause-cli
 -----
 
 
-## v1.7 (unreleased)
+## v1.7
+ - Add `date` as compatible argument format
  - Update development dependencies
 
 
