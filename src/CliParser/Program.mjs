@@ -45,20 +45,57 @@ class Program {
 		this.npm_package = {};
 		if(typeof npm_package_json_loc == "string")
 			this.npm_package = JSON.parse(fs.readFileSync(npm_package_json_loc, "utf-8"));
+		/**
+		 * The name of the program.
+		 * This is taken from the name field of your package.json automatically.
+		 * @type {string}
+		 */
 		this.name = this.npm_package.name || "(unknown)";
+		/**
+		 * The version of the program.
+		 * This is taken from the version field of your package.json automatically.
+		 * @type {string}
+		 */
 		this.version = this.npm_package.version || "(unknown)";
+		/**
+		 * The name of the author that wrote the program.
+		 * Appears on the second printed line of the help.
+		 * This is taken from the author field of your package.json automatically.
+		 * @type {string}
+		 */
 		this.author = this.npm_package.author || "(unknown)";
+		/**
+		 * The description that appears next to the progrram name on the first line.
+		 * This is taken from the description field in your package.json automatically.
+		 * @type {string}
+		 */
 		this.description = this.npm_package.description || "(unknown)";
+		/**
+		 * The extended description that appears below the author name.
+		 * @type {string}
+		 */
 		this.description_extended = "";
 		
-		// Global argument definitions
+		/**
+		 * Global argument definitions.
+		 * @type {Argument[]}
+		 */
 		this.arguments_global = {};
-		// Subcommand definitions
+		/**
+		 * Subcommand definitions.
+		 * @type {Subcommand[]}
+		 */
 		this.subcommands = {};
 		
-		// The selected subcommand
+		/**
+		 * The name of the currently selected subcommand.
+		 * @type {string}
+		 */
 		this.current_subcommand = null;
-		// Extra args we found while parsing
+		/**
+		 * Extra args we found while parsing.
+		 * @type {string[]}
+		 */
 		this.extras = [];
 		
 		this.options = {};
@@ -274,11 +311,28 @@ Try --help for usage information.${a.reset}`);
 		process.exit(0);
 	}
 	
+	/*
+	██   ██ ███████ ██      ██████
+	██   ██ ██      ██      ██   ██
+	███████ █████   ██      ██████
+	██   ██ ██      ██      ██
+	██   ██ ███████ ███████ ██
+	*/
+
+	
 	/**
 	 * Displays auto-generated help text and then terminates the Node.js process
 	 * @return	{n/a}	This method does not return (the process exits before this method does).
 	 */
 	write_help_exit() {
+		if(this.current_subcommand !== null)
+			console.error(this.make_help_subcommand(this.current_subcommand))
+		else
+			console.error(this.make_help());
+		process.exit(0);
+	}
+	
+	make_help() {
 		let result = `${a.hicol}${this.name}${a.reset} - ${this.description}
     ${a.locol}By ${this.author}${a.reset}\n\n`;
 		
@@ -297,10 +351,27 @@ ${" ".repeat(4)}${this.name}${this.has_subcommands ? " [subcommand]" : ""} [opti
 			result += this._stringify_global_options();
 		
 		if(this.has_subcommands)
-			result += this._stringify_subcommand_args();
+			result += this._stringify_subcommands_args();
 		
-		console.error(result);
-		process.exit(0);
+		return result;
+	}
+	
+	make_help_subcommand(subcommand_name) {
+		let subcommand = this.subcommands[subcommand_name];
+		if(!(subcommand instanceof Subcommand))
+			return this.make_help();
+		
+		let result = `${this.c_heading}Usage:${a.reset}\n`;
+		result += `${" ".repeat(4)}${this.name} ${subcommand_name} [options]\n\n`;
+		result += `${this.c_heading}Options:${a.reset}\n`;
+		if(subcommand.has_arguments)
+			result += this._stringify_subcommand_args(subcommand_name, false);
+		else
+			result += `    (none)`;
+		
+		if(this.has_arguments)
+			result += this._stringify_global_options();
+		return result;
 	}
 	
 	_stringify_global_options() {
@@ -311,17 +382,27 @@ ${" ".repeat(4)}${this.name}${this.has_subcommands ? " [subcommand]" : ""} [opti
 		
 	}
 	
-	_stringify_subcommand_args() {
+	_stringify_subcommands_args() {
 		let result = `\n${this.c_heading}Subcommand Options:${a.reset}\n`;
-		for(let subcommand of Object.values(this.subcommands)) {
-			if(!subcommand.has_arguments) continue;
-			
-			result += `    ${this.c_smallheading}${subcommand.name}:${a.reset}\n`;
-			result += this._stringify_arg_list(
-				Object.values(subcommand.arguments),
-				" ".repeat(8)
-			);
+		for(let subcommand_name of Object.keys(this.subcommands)) {
+			let part = this._stringify_subcommand_args(subcommand_name);
+			if(part !== null) result += part;
 		}
+		return result;
+	}
+	
+	_stringify_subcommand_args(subcommand_name, include_header = true) {
+		let subcommand = this.subcommands[subcommand_name];
+		if(!subcommand.has_arguments) return null;
+		
+		let result = "";
+		if(include_header)
+			result += `    ${this.c_smallheading}${subcommand.name}:${a.reset}\n`;
+		
+		result += this._stringify_arg_list(
+			Object.values(subcommand.arguments),
+			" ".repeat(include_header ? 8 : 4)
+		);
 		return result;
 	}
 	

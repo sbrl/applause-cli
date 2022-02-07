@@ -15,7 +15,9 @@ npm install --save applause-cli
 
 
 ## v1.8 (unreleased)
+ - When `--help` is specified after a subcommand, subcommand-specific help is now displayed
  - Minor clarification in README
+ - Fix example in README
 
 
 ## v1.7
