@@ -25,12 +25,14 @@ Example usage:
 ```javascript
 "use strict";
 
+import path from 'path';
+
 import CliParser from 'applause-cli';
 
 // HACK: Make sure __dirname is defined when using es6 modules. I forget where I found this - a PR with a source URL would be great :D
 const __dirname = import.meta.url.slice(7, import.meta.url.lastIndexOf("/"));
 
-// Locate your package.json - this assumes it's sitting in the same directory as this file
+// Locate your package.json - this assumes it's sitting in the parent directory of this file (e.g. if this file was ./src/index.json and it was at ./package.json)
 const package_json_filepath = path.resolve(__dirname, "../package.json");
 
 // Create a new CLI parser
