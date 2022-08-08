@@ -361,7 +361,8 @@ ${" ".repeat(4)}${this.name}${this.has_subcommands ? " [subcommand]" : ""} [opti
 		if(!(subcommand instanceof Subcommand))
 			return this.make_help();
 		
-		let result = `${this.c_heading}Usage:${a.reset}\n`;
+		let result = `${a.hicol}${subcommand_name}${a.reset}: ${subcommand.description}\n\n`;
+		result += `${this.c_heading}Usage:${a.reset}\n`;
 		result += `${" ".repeat(4)}${this.name} ${subcommand_name} [options]\n\n`;
 		result += `${this.c_heading}Options:${a.reset}\n`;
 		if(subcommand.has_arguments)

@@ -14,6 +14,11 @@ npm install --save applause-cli
 -----
 
 
+## v1.8.2
+ - Slightly improve docs on Subcommand class
+ - Add subcommand name and description to subcommand-specific help text
+
+
 ## v1.8.1
  - Update dependencies
 
