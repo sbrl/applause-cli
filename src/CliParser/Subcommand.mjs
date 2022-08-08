@@ -23,7 +23,15 @@ class Subcommand {
 	}
 	
 	constructor(name, description) {
+		/**
+		 * The name of this subcommand.
+		 * @var {string}
+		 */
 		this.name = name;
+		/**
+		 * The human-readable description of this subcommand.
+		 * @var {string}
+		 */
 		this.description = description;
 		this.arguments = {};
 	}
