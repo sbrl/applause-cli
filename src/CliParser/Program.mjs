@@ -217,7 +217,7 @@ class Program {
 	 * @example
 	 * let program = new Program("path/to/package.json");
 	 * // ....
-	 * program.parse(process.argv.slice(2)); // Strip the first 2 argument, since they are the path to the Node.js binary and the script being executed respectively
+	 * program.parse(process.argv.slice(2)); // Strip the first 2 arguments, since they are the path to the Node.js binary and the script being executed respectively
 	 * @param	{string[]}	args	The array of arguments to parse.
 	 * @return	{Object}	The parsed arguments.
 	 */
