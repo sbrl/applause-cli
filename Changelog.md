@@ -13,9 +13,10 @@ npm install --save applause-cli
 
 -----
 
-## Unreleased changes
-- Bump version of dev dependency `documentation``
 
+## v1.8.3 (20th August 2025)
+- Bump version of dev dependency `documentation``
+- Update dependencies
 
 ## v1.8.2
  - Slightly improve docs on Subcommand class
